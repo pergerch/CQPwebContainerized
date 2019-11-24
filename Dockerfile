@@ -32,7 +32,9 @@ RUN mkdir /cwb && \
 	mkdir /cqpweb/tempdir && \
 	mkdir /cqpweb/uploaddir && \
 	mkdir /cqpweb/datadir && \
-	mkdir /cqpweb/registry
+	mkdir /cqpweb/registry && \
+	chmod -R 777 /cwb && \
+	chmod -R 777 /cqpweb 
 
 WORKDIR /cwb
 
@@ -43,6 +45,7 @@ RUN svn checkout https://svn.code.sf.net/p/cwb/code/cwb/trunk .
 RUN ./install-scripts/install-linux
 
 ENV PATH "$PATH:/usr/local/cwb-3.4.18/bin"
+RUN echo PATH="$PATH" >> /etc/apache2/envvars
 
 WORKDIR /var/www/html
 
