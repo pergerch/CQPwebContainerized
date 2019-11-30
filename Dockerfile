@@ -34,7 +34,8 @@ RUN mkdir /cwb && \
 	mkdir /cqpweb/datadir && \
 	mkdir /cqpweb/registry && \
 	chmod -R 777 /cwb && \
-	chmod -R 777 /cqpweb 
+	chmod -R 777 /cqpweb && \
+	chmod -R 777 /var/www/html 
 
 WORKDIR /cwb
 
