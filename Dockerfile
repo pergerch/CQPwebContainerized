@@ -41,16 +41,16 @@ WORKDIR /cwb
 
 RUN apt-get install subversion -y
 
-RUN svn checkout https://svn.code.sf.net/p/cwb/code/cwb/trunk .
+RUN svn checkout -r 1406 https://svn.code.sf.net/p/cwb/code/cwb/trunk .
 
 RUN ./install-scripts/install-linux
 
-ENV PATH "$PATH:/usr/local/cwb-3.4.18/bin"
+ENV PATH "$PATH:/usr/local/cwb-3.4.19/bin"
 RUN echo PATH="$PATH" >> /etc/apache2/envvars
 
 WORKDIR /var/www/html
 
-RUN svn checkout https://svn.code.sf.net/p/cwb/code/gui/cqpweb/branches/3.2-latest/ .
+RUN svn checkout -r 1406 https://svn.code.sf.net/p/cwb/code/gui/cqpweb/branches/3.2-latest/ .
 
 RUN echo "<?php" > ./lib/config.inc.php
 RUN echo "\$superuser_username = 'bob';" >> ./lib/config.inc.php
@@ -69,7 +69,7 @@ WORKDIR /var/www/html/bin
 
 RUN chown -R mysql:mysql /var/lib/mysql && \
     service mysql start && \
-	mysql -e "create database cqpwebdb default charset utf8;" && \
+	mysql -e "create database cqpwebdb default charset utf8mb4;" && \
 	mysql -e "create user cqpweb identified by 'cqpweb';" && \
 	mysql -e "grant all on cqpwebdb.* to cqpweb;" && \
 	mysql -e "grant file on *.* to cqpweb;" && \
